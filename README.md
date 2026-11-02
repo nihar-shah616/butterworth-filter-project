@@ -1,5 +1,4 @@
-# butterworth-filter-project
-4th-order Butterworth low-pass (Sallen-Key) with ideal, real op-amp and Monte Carlo analysis in LTspice
+
 # 4th-Order Butterworth Low-Pass Filter (Sallen-Key), LTspice
 
 A 4th-order Butterworth low-pass filter with a 10 kHz cutoff, built from two cascaded unity-gain Sallen-Key stages. The design was derived by hand and then checked in LTspice with ideal buffers, a real op-amp model (gain-bandwidth sweep) and a Monte Carlo tolerance analysis.
@@ -49,6 +48,10 @@ The hand derivation is in `Derivation Notes.docx`.
 
 The -3 dB point is **10,102 Hz**, 1% above the 10 kHz target. The output falls at 80 dB per decade and the phase reaches -360 degrees, as expected for four poles. Stage A alone falls at 40 dB per decade and reaches -180 degrees.
 
+   ![Ideal circuit](ideal_schematic.png)
+
+   ![Ideal response](ideal_bode.png)
+
 ### 2. Real op-amp, gain-bandwidth sweep
 
 | GBW | -3 dB frequency | Error vs ideal (10,102 Hz) |
@@ -60,6 +63,8 @@ The -3 dB point is **10,102 Hz**, 1% above the 10 kHz target. The output falls a
 | 100 MHz | 10,102 Hz | -0.005% |
 
 For this 10 kHz filter, a GBW of 300 kHz (30 times the cutoff) or more kept the cutoff within 1% of the ideal value. At 100 kHz (10 times the cutoff) the error was 3.7%. Only these five GBW values were simulated, so the exact threshold lies somewhere between 100 kHz and 300 kHz. The real op-amp also changes the high-frequency behaviour: instead of continuing to fall at 80 dB per decade, the stopband flattens at a level that depends on GBW.
+
+   ![GBW sweep](gbw_sweep_bode.png)
 
 ### 3. Monte Carlo tolerance analysis
 
@@ -75,6 +80,8 @@ For this 10 kHz filter, a GBW of 300 kHz (30 times the cutoff) or more kept the 
 | 5th to 95th percentile | 9,794 Hz to 10,500 Hz |
 
 The mean is within 0.1% of nominal, so the tolerances scatter the cutoff in both directions without biasing it. With these part tolerances the cutoff is only reliable to about +/-5%.
+
+   ![Monte Carlo curves](mc_curves.png)
 
 ## Limitations
 
